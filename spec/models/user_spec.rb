@@ -60,10 +60,10 @@ RSpec.describe User, type: :model do
       it '重複したメールアドレスは登録できない' do
         @user.save
         duplicate_user = @user.dup
-        duplicate_user.email = @user.email.upcase 
+        duplicate_user.email = @user.email.upcase
         expect(duplicate_user.valid?).to be_falsey
       end
-    
+
       it 'メールアドレスに@を含まない場合は登録できない' do
         @user.email = 'invalid_email_example.com'
         expect(@user.valid?).to be_falsey
@@ -96,7 +96,7 @@ RSpec.describe User, type: :model do
         @user.password = '1234567890'
         expect(@user.valid?).to be_falsey
       end
-    
+
       it '全角文字を含むパスワードでは登録できない' do
         @user.password = 'パスワード１２３'
         expect(@user.valid?).to be_falsey
