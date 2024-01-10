@@ -4,10 +4,7 @@ class User < ApplicationRecord
 
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
   validates :password,
-            format: { with: PASSWORD_REGEX, message: 'must include both letters and numbers' },
-            presence: true,
-            length: { minimum: 6 }
-
+            format: { with: PASSWORD_REGEX, message: 'must include both letters and numbers' }
   validates :nickname, presence: true
   validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ヶー－一-龠々]+\z/ }
   validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ヶー－一-龠々]+\z/ }

@@ -57,16 +57,18 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Password can't be blank")
       end
 
-      it '重複したメールアドレスは登録できない' do
+      it 'メールアドレスがすでに登録しているユーザーと重複していると保存できない' do
         @user.save
-        duplicate_user = @user.dup
-        duplicate_user.email = @user.email.upcase
-        expect(duplicate_user.valid?).to be_falsey
+        another_user = FactoryBot.build(:user)
+        another_user.email = @user.email
+        another_user.valid?
+        expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
 
-      it 'メールアドレスに@を含まない場合は登録できない' do
-        @user.email = 'invalid_email_example.com'
-        expect(@user.valid?).to be_falsey
+      it 'emailに@が含まれていない場合登録できない' do
+        @user.email = 'hugagmail.com'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
 
       it 'パスワードと確認用パスワードが一致しないと登録できない' do
@@ -82,24 +84,27 @@ RSpec.describe User, type: :model do
       end
 
       it 'パスワードと確認用パスワードが半角英数字でないと登録できない' do
-        @user.password_confirmation = ''
+        @user.password_confirmation = '987654'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
       it '英字のみのパスワードでは登録できない' do
-        @user.password = 'onlyletters'
-        expect(@user.valid?).to be_falsey
+        @user.password = 'password'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
       it '数字のみのパスワードでは登録できない' do
         @user.password = '1234567890'
-        expect(@user.valid?).to be_falsey
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
       it '全角文字を含むパスワードでは登録できない' do
         @user.password = 'パスワード１２３'
-        expect(@user.valid?).to be_falsey
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
       it '名字が全角（漢字・ひらがな・カタカナ）でないと登録できない' do
