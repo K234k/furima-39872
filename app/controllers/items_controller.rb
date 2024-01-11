@@ -4,4 +4,3 @@ class ItemsController < ApplicationController
     # 何もロジックが必要ない場合は、特に追加する必要はありません
   end
 end
-
