@@ -35,7 +35,7 @@
  belongs_to :user
  has_one :order
  has_many :comments
-
+ items_controller.rb items_controller.rb items_controller.rb
 ### orders
 
 | Column | Type       | Options     |
