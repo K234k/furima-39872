@@ -37,7 +37,6 @@ RSpec.describe Item, type: :model do
       end
     end
 
-
     context '出品ができないとき' do
       it 'ユーザー登録している人でないと出品できない' do
         @item.user = nil
