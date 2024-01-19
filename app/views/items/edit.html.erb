@@ -6,12 +6,13 @@ app/assets/stylesheets/items/new.css %>
     <%= link_to image_tag('furima-logo-color.png' , size: '185x50'), "/" %>
   </header>
   <div class="items-sell-main">
-    <h2 class="items-sell-title">商品の情報を入力</h2>
-      <%= form_with model: @item, local: true, data: { turbo: false } do |f| %>
+   <h2 class="items-sell-title">商品の情報を入力</h2>
+      <%= form_with local: true do |f| %>
 
+    <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
+    <%= render 'shared/error_messages', model: f.object  %>
+    <%# //インスタンスを渡して 、エラー発生時にメッセージが表示されるようにしましょう。%>
 
-    <%# インスタンスを渡して、エラー発生時にメッセージを表示する%>
-    <%= render 'shared/error_messages', model: f.object %>
     <%# 商品画像 %>
     <div class="img-upload">
       <div class="weight-bold-text">
@@ -100,7 +101,7 @@ app/assets/stylesheets/items/new.css %>
         <span class="indispensable">必須</span>
       </div>
       <span class="sell-yen">¥</span>
-      <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"例）300" %>
+      <%= f.text_field :price, class:"price-input", id:"item-price", placeholder:"半角数字で入力" %>
     </div>
     <div class="price-content">
       <span>販売手数料 (10%)</span>
@@ -155,4 +156,4 @@ app/assets/stylesheets/items/new.css %>
       ©︎Furima,Inc.
     </p>
   </footer>
-</div>  
+</div>
