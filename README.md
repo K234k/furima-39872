@@ -35,7 +35,6 @@
  belongs_to :user
  has_one :order
  has_many :comments
-
 ### orders
 
 | Column | Type       | Options     |
