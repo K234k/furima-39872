@@ -34,8 +34,8 @@ class ItemsController < ApplicationController
       redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
+    end
   end
-end
 
   private
 
