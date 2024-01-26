@@ -50,9 +50,6 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
-    unless @item
-      redirect_to root_path
-    end
   end
 
   def item_params
