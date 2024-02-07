@@ -36,10 +36,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy if @item.user_id == current_user.id && @item.purchase.blank?
+    if @item.user_id == current_user.id && @item.purchase.blank?
+      @item.destroy
+    end
     redirect_to root_path
   end
-
+  
   private
 
   def set_item
@@ -47,11 +49,11 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-    redirect_to root_path if @item.purchase.present? || current_user.id != @item.user_id
+    redirect_to root_path if @item.purchase.present? || current_user.id == @item.user_id
+end
   end
 
   def item_params
     params.require(:item).permit(:image, :name, :description, :category_id, :item_status_id, :shipping_cost_id, :prefecture_id,
                                  :shipping_date_id, :price).merge(user_id: current_user.id)
   end
-end
