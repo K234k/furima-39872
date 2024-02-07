@@ -57,7 +57,7 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form.errors.full_messages).to include("Item can't be blank")
       end
       it '郵便番号にハイフンがないと保存できないこと' do
-        @order_form.postcode = 1_234_567 # ハイフンなしの場合
+        @order_form.postcode = 1_234_567 
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include('Postcode input correctly')
       end
@@ -92,14 +92,24 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form.errors.full_messages).to include("Phone number can't be blank")
       end
       it '電話番号にハイフンがあると保存できないこと' do
-        @order_form.phone_number = '123-123-123' # ハイフンを含む場合
+        @order_form.phone_number = '090-1234-5678'
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number can't be blank. input only number")
+        expect(@order_form.errors.full_messages).to include("Phone number is invalid") # 修正
       end
       it '電話番号が12桁以上あると保存できないこと' do
-        @order_form.phone_number = 123_456_789_012_345 # 12桁以上の場合
+        @order_form.phone_number = '0901234567890' # 12桁以上の数字
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number can't be blank. input only number")
+        expect(@order_form.errors.full_messages).to include("Phone number is invalid") # 修正
+      end
+      it '電話番号に半角数字以外が含まれている場合は保存できないこと' do
+        @order_form.phone_number = '123-4567-8901' 
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号が9桁以下だと保存できないこと' do
+        @order_form.phone_number = '123456789' 
+        @order_form.valid?
+        expect(@order_form.errors.full_messages).to include("Phone number is invalid")
       end
       it 'トークンが空だと保存できないこと' do
         @order_form.token = nil
