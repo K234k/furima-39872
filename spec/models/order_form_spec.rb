@@ -35,7 +35,7 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form).to be_valid
       end
       it '建物名が空でも保存できる' do
-        @order_form.prefecture_id = 2 
+        @order_form.prefecture_id = 2
         @order_form.building = ''
         expect(@order_form).to be_valid
       end
@@ -57,12 +57,12 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form.errors.full_messages).to include("Item can't be blank")
       end
       it '郵便番号にハイフンがないと保存できないこと' do
-        @order_form.postcode = 1234567 # ハイフンなしの場合
+        @order_form.postcode = 1_234_567 # ハイフンなしの場合
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Postcode input correctly")
+        expect(@order_form.errors.full_messages).to include('Postcode input correctly')
       end
       it '郵便番号が空だと保存できないこと' do
-        @order_form.postcode = '' 
+        @order_form.postcode = ''
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Postcode can't be blank")
       end
@@ -72,7 +72,7 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form.errors.full_messages).to include("Prefecture can't be blank")
       end
       it '都道府県が「---」だと保存できないこと' do
-        @order_form.prefecture_id = 1 
+        @order_form.prefecture_id = 1
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Prefecture can't be blank")
       end
@@ -90,14 +90,14 @@ RSpec.describe OrderForm, type: :model do
         @order_form.phone_number = nil
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Phone number can't be blank")
-      end  
+      end
       it '電話番号にハイフンがあると保存できないこと' do
         @order_form.phone_number = '123-123-123' # ハイフンを含む場合
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Phone number can't be blank. input only number")
       end
       it '電話番号が12桁以上あると保存できないこと' do
-        @order_form.phone_number = 123456789012345 # 12桁以上の場合
+        @order_form.phone_number = 123_456_789_012_345 # 12桁以上の場合
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include("Phone number can't be blank. input only number")
       end

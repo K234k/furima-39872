@@ -36,12 +36,10 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.user_id == current_user.id && @item.purchase.blank?
-      @item.destroy
-    end
+    @item.destroy if @item.user_id == current_user.id && @item.purchase.blank?
     redirect_to root_path
   end
-  
+
   private
 
   def set_item

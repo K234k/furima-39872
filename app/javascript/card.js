@@ -19,8 +19,6 @@ const pay = () => {
     // PAY.JPを使用してトークンを生成
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
-        // エラー処理
-        console.log("Error:", response.error);
       } else {
         // トークンが生成された場合の処理
         const token = response.id;
