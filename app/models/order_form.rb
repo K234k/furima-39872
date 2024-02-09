@@ -9,14 +9,15 @@ class OrderForm
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :block
-    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid" }
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
     validates :token
   end
 
   def save
     ActiveRecord::Base.transaction do
-      order = Order.create!(user_id: user_id, item_id: item_id)
-      ShippingAddress.create!(order_id: order.id, postcode: postcode, prefecture_id: prefecture_id, city: city, block: block, building: building, phone_number: phone_number)
+      order = Order.create!(user_id:, item_id:)
+      ShippingAddress.create!(order_id: order.id, postcode:, prefecture_id:, city:, block:,
+                              building:, phone_number:)
     end
     true
   rescue ActiveRecord::RecordInvalid

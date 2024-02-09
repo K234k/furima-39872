@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe OrderForm, type: :model do
   before do
     user = FactoryBot.create(:user)
-    item = FactoryBot.create(:item, user: user)
-    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id, token: "tok_abcdefghijk00000000000000000")
+    item = FactoryBot.create(:item, user:)
+    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id, token: 'tok_abcdefghijk00000000000000000')
   end
-  
+
   describe '配送先情報の保存' do
     context '配送先情報の保存ができるとき' do
       it 'すべての値が正しく入力されていれば保存できること' do
@@ -59,7 +59,7 @@ RSpec.describe OrderForm, type: :model do
         expect(@order_form.errors.full_messages).to include("Item can't be blank")
       end
       it '郵便番号にハイフンがないと保存できないこと' do
-        @order_form.postcode = 1_234_567 
+        @order_form.postcode = 1_234_567
         @order_form.valid?
         expect(@order_form.errors.full_messages).to include('Postcode input correctly')
       end
@@ -96,22 +96,22 @@ RSpec.describe OrderForm, type: :model do
       it '電話番号にハイフンがあると保存できないこと' do
         @order_form.phone_number = '090-1234-5678'
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number is invalid") # 修正
+        expect(@order_form.errors.full_messages).to include('Phone number is invalid') # 修正
       end
       it '電話番号が12桁以上あると保存できないこと' do
         @order_form.phone_number = '0901234567890' # 12桁以上の数字
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number is invalid") # 修正
+        expect(@order_form.errors.full_messages).to include('Phone number is invalid') # 修正
       end
       it '電話番号に半角数字以外が含まれている場合は保存できないこと' do
-        @order_form.phone_number = '123-4567-8901' 
+        @order_form.phone_number = '123-4567-8901'
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_form.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号が9桁以下だと保存できないこと' do
-        @order_form.phone_number = '123456789' 
+        @order_form.phone_number = '123456789'
         @order_form.valid?
-        expect(@order_form.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_form.errors.full_messages).to include('Phone number is invalid')
       end
       it 'トークンが空だと保存できないこと' do
         @order_form.token = nil
