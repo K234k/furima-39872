@@ -13,7 +13,7 @@ class OrderForm
     validates :token
   end
 
-  dedef save
+   def save
   ActiveRecord::Base.transaction do
     order = Order.create!(user_id: user_id, item_id: item_id)
     ShippingAddress.create!(
@@ -29,4 +29,6 @@ class OrderForm
   true
 rescue ActiveRecord::RecordInvalid
   false
+end
+
 end
