@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.user_id == current_user.id && @item.purchase.blank?
+    if @item.user_id == current_user.id && @item.order.blank?
       @item.destroy
     end
     redirect_to root_path
@@ -49,7 +49,7 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-    redirect_to root_path if @item.purchase.present? || current_user.id == @item.user_id
+    redirect_to root_path if @item.order.present? || current_user.id == @item.user_id
 end
   end
 

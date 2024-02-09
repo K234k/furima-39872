@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :order_form do
-    association :user
-    association :item
+    # user_idとitem_idはテストコード内で生成したインスタンスのIDを使用するため、ここでは削除
     postcode { "#{Faker::Number.number(digits: 3)}-#{Faker::Number.number(digits: 4)}" }
     prefecture_id { Faker::Number.between(from: 2, to: 47) } # 1は「---」を避ける
     city { Faker::Address.city }
