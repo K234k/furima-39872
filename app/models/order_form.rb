@@ -27,8 +27,7 @@ class OrderForm
     )
   end
   true
-rescue ActiveRecord::RecordInvalid
+ rescue ActiveRecord::RecordInvalid
   false
-end
-
+ end
 end
