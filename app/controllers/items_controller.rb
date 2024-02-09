@@ -49,9 +49,9 @@ class ItemsController < ApplicationController
   end
 
   def sold_edit
-    redirect_to root_path if @item.order.present? || current_user.id == @item.user_id
-end
+    redirect_to root_path if @item.order.present? || current_user.id != @item.user_id
   end
+end
 
   def item_params
     params.require(:item).permit(:image, :name, :description, :category_id, :item_status_id, :shipping_cost_id, :prefecture_id,
