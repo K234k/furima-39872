@@ -19,23 +19,21 @@ const pay = () => {
     // PAY.JPを使用してトークンを生成
     payjp.createToken(numberElement).then(function (response) {
       if (response.error) {
-      } else {
         // トークンが生成された場合の処理
         const token = response.id;
         const renderDom = document.getElementById("charge-form");
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
+      }
         // クレジットカード情報のフィールドをクリア
         numberElement.clear();
         expiryElement.clear();
         cvcElement.clear();
-    
+      });
         // トークンを含むフォームを送信
         document.getElementById("charge-form").submit();
-      }
     });
-  });
-};
+  };
 
 // ページロード時に関数を実行
 window.addEventListener("turbo:load", pay);
